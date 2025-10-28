@@ -18,7 +18,7 @@ namespace PointCloudDiffusion.Component.Visualization
         public PointCloudDiffusionComponent()
           : base("PointCloudDiffusion", "PD",
             "Description",
-            "BinaryNature", "Visualization")
+            "EcoLogic", "Visualization")
         {
         }
 

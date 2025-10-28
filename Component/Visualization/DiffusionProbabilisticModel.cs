@@ -13,7 +13,7 @@ namespace PointCloudDiffusion.Component.Visualization
         public DiffusionProbabilisticModel()
           : base("DiffusionProbabilisticModel", "DPM",
               "Run Diffusion Probabilistic Model for 3D Point Cloud Generation",
-              "BinaryNature", "Visualization")
+              "EcoLogic", "Visualization")
         {
         }
 

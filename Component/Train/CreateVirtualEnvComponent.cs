@@ -18,7 +18,7 @@ namespace PointCloudDiffusion.Component.Train
         public CreateVirtualEnvComponent()
           : base("CreateVirtualEnvironment", "CondaEnv",
               "Create Conda Virtual Environment",
-              "BinaryNature", "Train")
+              "EcoLogic", "Train")
         {
         }
 
