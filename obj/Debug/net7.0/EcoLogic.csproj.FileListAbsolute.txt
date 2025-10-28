@@ -1,0 +1,17 @@
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/bin/Debug/net7.0/EcoLogic.deps.json
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/bin/Debug/net7.0/EcoLogic.runtimeconfig.json
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/bin/Debug/net7.0/EcoLogic.gha
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/bin/Debug/net7.0/EcoLogic.pdb
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/bin/Debug/net7.0/NumSharp.dll
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.csproj.AssemblyReference.cache
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.GeneratedMSBuildEditorConfig.editorconfig
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.AssemblyInfoInputs.cache
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.AssemblyInfo.cs
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.csproj.CoreCompileInputs.cache
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.sourcelink.json
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.csproj.Up2Date
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.gha
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/refint/EcoLogic.gha
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.pdb
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/EcoLogic.genruntimeconfig.cache
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/Debug/net7.0/ref/EcoLogic.gha

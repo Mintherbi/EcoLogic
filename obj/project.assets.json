@@ -666,11 +666,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/SideCar.csproj",
-      "projectName": "SideCar",
-      "projectPath": "/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/SideCar.csproj",
+      "projectUniqueName": "/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/EcoLogic.csproj",
+      "projectName": "EcoLogic",
+      "projectPath": "/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/EcoLogic.csproj",
       "packagesPath": "/Users/minsupchung/.nuget/packages/",
-      "outputPath": "/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/",
+      "outputPath": "/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/minsupchung/.nuget/NuGet/NuGet.Config"

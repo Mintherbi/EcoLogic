@@ -143,7 +143,7 @@ namespace PointCloudDiffusion.Component.ExternalProcess
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("7B7BFE60-3B92-48FB-8832-C77956D7A0EC"); }
+            get { return new Guid("EDA8AF64-71A0-4A67-9F6D-DB48BB2DB751"); }
         }
     }
 }

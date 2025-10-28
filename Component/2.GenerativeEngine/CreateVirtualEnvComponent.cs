@@ -115,7 +115,7 @@ namespace PointCloudDiffusion.Component.Train
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("CA4FFC80-6197-4705-819B-6AE11A894CB2"); }
+            get { return new Guid("BFCAF7F5-8B8E-457E-9FD0-D48322E2C9BF"); }
         }
     }
 }

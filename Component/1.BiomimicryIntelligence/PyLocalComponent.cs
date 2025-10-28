@@ -3,18 +3,37 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
+using System.IO;
+
+using PointCloudDiffusion.Client;
+
 namespace PointCloudDiffusion.Component.ExternalProcess
 {
-    public class PyServerComponent : GH_Component
+    public class PyLocalComponent : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public PyServerComponent()
-          : base("PythonInServer", "PIS",
-              "Python Script run in server",
+        public PyLocalComponent()
+          : base("PythonInLocal", "PyLo",
+              "Python in Local Environment",
               "EcoLogic", "Execution")
         {
+        }
+
+        string PythonPath;
+        string ScriptPath;
+        string args;
+
+        public override void CreateAttributes()
+        {
+            m_attributes = new CustomUI.ButtonUIAttributes(this, "RUN!", RunPython, "RunPythonScript");
+        }
+
+        public void RunPython()
+        {
+            PyLocal pylocal = new PyLocal(PATH.HelloWorld);
+            pylocal.Run();
         }
 
         /// <summary>
@@ -22,8 +41,11 @@ namespace PointCloudDiffusion.Component.ExternalProcess
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("ipAddress", "IP", "IP Address of Server", GH_ParamAccess.item);
-            pManager.AddTextParameter("SSH", "SSH", "SSH key for connection", GH_ParamAccess.item);
+            /*
+            pManager.AddTextParameter("PythonPath", "PP", "Path of Python", GH_ParamAccess.item, PATH.pythonPath);
+            pManager.AddTextParameter("ScriptPath", "SP", "Path of Script", GH_ParamAccess.item, PATH.HelloWorld);
+            pManager.AddTextParameter("ArgumentPath", "AP", "Path of Argument", GH_ParamAccess.item, "");
+            */
         }
 
         /// <summary>
@@ -31,6 +53,7 @@ namespace PointCloudDiffusion.Component.ExternalProcess
         /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
+            pManager.AddTextParameter("Process", "P", "Process of Program", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -39,6 +62,13 @@ namespace PointCloudDiffusion.Component.ExternalProcess
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            /*
+            if(!DA.GetData(0, ref PythonPath)) { return; }
+            if(!DA.GetData(1, ref ScriptPath)) { return; }
+            if(!DA.GetData(2, ref args)) { return; }
+            */
+
+            DA.SetData(0, null);
         }
 
         /// <summary>
@@ -59,7 +89,7 @@ namespace PointCloudDiffusion.Component.ExternalProcess
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("568F1800-4EE9-4015-9DA6-15B1E9FA8C3F"); }
+            get { return new Guid("59980291-EB78-470C-8B5D-110ECC6D4A8F"); }
         }
     }
 }

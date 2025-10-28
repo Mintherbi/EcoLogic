@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
-namespace PointCloudDiffusion.Component.Visualization
+namespace PointCloudDiffusion.Component.ExternalProcess
 {
-    public class DiffusionProbabilisticModel : GH_Component
+    public class PyServerComponent : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
-        public DiffusionProbabilisticModel()
-          : base("DiffusionProbabilisticModel", "DPM",
-              "Run Diffusion Probabilistic Model for 3D Point Cloud Generation",
-              "EcoLogic", "Visualization")
+        public PyServerComponent()
+          : base("PythonInServer", "PIS",
+              "Python Script run in server",
+              "EcoLogic", "Execution")
         {
         }
 
@@ -22,7 +22,8 @@ namespace PointCloudDiffusion.Component.Visualization
         /// </summary>
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("DataPath", "DP", ".npy Data Path", GH_ParamAccess.item);
+            pManager.AddTextParameter("ipAddress", "IP", "IP Address of Server", GH_ParamAccess.item);
+            pManager.AddTextParameter("SSH", "SSH", "SSH key for connection", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -30,8 +31,6 @@ namespace PointCloudDiffusion.Component.Visualization
         /// </summary>
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Progress", "P", "Progress Update", GH_ParamAccess.list);
-            pManager.AddTextParameter("LearningWeight", "LW", "Learning Weight Data", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -40,7 +39,6 @@ namespace PointCloudDiffusion.Component.Visualization
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            
         }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace PointCloudDiffusion.Component.Visualization
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("8CD8C891-E710-40BD-88DF-7FF5EC9C6886"); }
+            get { return new Guid("1AF86617-7302-4BD8-B0F2-92D7DFA53A9B"); }
         }
     }
 }

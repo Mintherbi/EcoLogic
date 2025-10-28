@@ -91,7 +91,7 @@ namespace PointCloudDiffusion.Component.Visualization
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("AC8BC418-6A66-47C1-8A40-2BED85F63497"); }
+            get { return new Guid("7CA81E08-54C4-4AD7-AB97-CC00EDADD64E"); }
         }
 
         private Point3d ReverseStep(Point3d noisyPt, Point3d originalPt, double t)

@@ -85,7 +85,7 @@ namespace PointCloudDiffusion.Component.Visualization
         /// It is vital this Guid doesn't change otherwise old ghx files 
         /// that use the old ID will partially fail during loading.
         /// </summary>
-        public override Guid ComponentGuid => new Guid("4b3f0afe-1c16-49ea-8165-461af1809e8e");
+    public override Guid ComponentGuid => new Guid("1569FA4C-9D52-4051-8B95-22E301CCF989");
 
         private Point3d AddGaussianNoise(Point3d pt, double t, double noiseStrength)
         {
