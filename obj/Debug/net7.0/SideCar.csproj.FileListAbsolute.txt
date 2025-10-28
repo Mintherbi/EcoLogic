@@ -1,0 +1,17 @@
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.csproj.AssemblyReference.cache
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.GeneratedMSBuildEditorConfig.editorconfig
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.AssemblyInfoInputs.cache
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.AssemblyInfo.cs
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.csproj.CoreCompileInputs.cache
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/bin/Debug/net7.0/SideCar.deps.json
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/bin/Debug/net7.0/SideCar.runtimeconfig.json
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/bin/Debug/net7.0/SideCar.gha
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/bin/Debug/net7.0/SideCar.pdb
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/bin/Debug/net7.0/NumSharp.dll
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.csproj.Up2Date
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.gha
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/refint/SideCar.gha
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.pdb
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.genruntimeconfig.cache
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/ref/SideCar.gha
+/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/SideCar/obj/Debug/net7.0/SideCar.sourcelink.json
