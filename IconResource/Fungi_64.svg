@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g fill="none" stroke="#6D4C41" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- root-like branches -->
+    <path d="M16 44 C22 34, 28 30, 32 28 C36 26, 42 24, 48 20" />
+    <path d="M20 48 C26 38, 30 34, 34 32 C38 30, 44 28, 50 24" />
+    <path d="M24 52 C30 42, 34 38, 38 36 C42 34, 48 32, 54 28" />
+  </g>
+</svg>

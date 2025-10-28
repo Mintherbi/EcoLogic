@@ -26,6 +26,14 @@
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
     <PackageReference Include="NumSharp" Version="0.30.0" />
   </ItemGroup>
+
+  <!-- Include icon resources: SVGs embedded and PNGs copied to output when present -->
+  <ItemGroup>
+    <EmbeddedResource Include="IconResource\**\*.svg" />
+    <None Include="IconResource\**\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   
   <!-- Reference WinForms for .NET 7.0 on macOS -->
   <ItemGroup>

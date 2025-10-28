@@ -22,7 +22,7 @@ namespace PointCloudDiffusion.Component.Train
         public CheckEnvironment()
           : base("CheckEnvironment", "Env",
               "Check Conda Environment that is Installed",
-              "EcoLogic", "Train")
+              "EcoLogic", "2.GenerativeEngine")
         {
         }
 
@@ -109,8 +109,17 @@ namespace PointCloudDiffusion.Component.Train
         {
             get
             {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
+                var asm = System.Reflection.Assembly.GetExecutingAssembly();
+                var resourceName = "EcoLogic.IconResource.CheckEnvironment_64.png";
+                var stream = asm.GetManifestResourceStream(resourceName);
+                if (stream != null)
+                    return new System.Drawing.Bitmap(stream);
+
+                var folder = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(asm.Location), "IconResource");
+                var file = System.IO.Path.Combine(folder, "CheckEnvironment_64.png");
+                if (System.IO.File.Exists(file))
+                    return new System.Drawing.Bitmap(file);
+
                 return null;
             }
         }

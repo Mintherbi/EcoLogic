@@ -31,7 +31,7 @@ namespace PointCloudDiffusion.Component.Misc
         public FilePathDesignator()
           : base("FilePathDesignator", "FP",
               "Designate File Path by double click!",
-              "EcoLogic", "Misc.")
+              "EcoLogic", "0.Misc.")
         {
         }
 

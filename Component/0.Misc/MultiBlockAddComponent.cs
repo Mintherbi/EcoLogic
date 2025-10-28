@@ -15,7 +15,7 @@ namespace PointCloudDiffusion.Component.Misc
         public MultiBlockAddComponent()
           : base("MultiBlockParalellMove", "MBPM",
               "Utilizing Multiple Block for Point Movement Employing CUDA",
-              "EcoLogic", "Misc.")
+              "EcoLogic", "0.Misc.")
         {
         }
 

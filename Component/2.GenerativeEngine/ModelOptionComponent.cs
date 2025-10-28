@@ -23,7 +23,7 @@ namespace PointCloudDiffusion.Component.Train
           : base("ModelOption", "Arg",
               "Construct Model Parser for Trainging \n" +
                 "Double Click Component to Set which model to run",
-              "EcoLogic", "Train")
+              "EcoLogic", "2.GenerativeEngine")
         {
         }
         public override void CreateAttributes()
@@ -242,8 +242,17 @@ namespace PointCloudDiffusion.Component.Train
         {
             get
             {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
+                var asm = System.Reflection.Assembly.GetExecutingAssembly();
+                var resourceName = "EcoLogic.IconResource.ModelOption_64.png";
+                var stream = asm.GetManifestResourceStream(resourceName);
+                if (stream != null)
+                    return new System.Drawing.Bitmap(stream);
+
+                var folder = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(asm.Location), "IconResource");
+                var file = System.IO.Path.Combine(folder, "ModelOption_64.png");
+                if (System.IO.File.Exists(file))
+                    return new System.Drawing.Bitmap(file);
+
                 return null;
             }
         }
