@@ -84,7 +84,7 @@ namespace PointCloudDiffusion.Component.Misc
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("EFA5A5A7-5A63-4E81-992E-3F0B2A84EE0A"); }
+            get { return new Guid("7DB629C7-5E9C-448A-9395-AEA7BFD9DE9A"); }
         }
     }
 }

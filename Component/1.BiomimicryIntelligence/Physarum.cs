@@ -49,6 +49,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
 			}
 		}
 
-		public override Guid ComponentGuid => new Guid("B0BA3523-3AA7-43F9-B3AA-5CDA3C9138C8");
+		public override Guid ComponentGuid => new Guid("95210E7B-3CFB-4DB3-AE64-A35EE4C0C06D");
 	}
 }

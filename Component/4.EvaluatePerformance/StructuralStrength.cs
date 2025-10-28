@@ -47,6 +47,6 @@ namespace PointCloudDiffusion.Component.EvaluatePerformance
             }
         }
 
-        public override Guid ComponentGuid => new Guid("EDA8AF64-71A0-4A67-9F6D-DB48BB2DB751");
+        public override Guid ComponentGuid => new Guid("F9D7AEBE-0A6D-4F7D-9D0B-AEFC7B8DDBD0");
     }
 }
