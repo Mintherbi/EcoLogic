@@ -9,6 +9,41 @@ import clr
 import traceback
 import math
 
+# Input variables (will be set by C# PythonScript.SetVariable)
+# Default values for standalone execution
+# if 'N0' not in globals():
+#     N0 = 3
+    
+# if 'Steps' not in globals():
+#     Steps = 300
+    
+# if 'dt' not in globals():
+#     dt = 0.1
+    
+# if 'Lx' not in globals():
+#     Lx = 10.0
+    
+# if 'Ly' not in globals():
+#     Ly = 10.0
+    
+# if 'Lz' not in globals():
+#     Lz = 10.0
+    
+# if 'speed' not in globals():
+#     speed = 0.2
+    
+# if 'noise' not in globals():
+#     noise = 0.05
+    
+# if 'repulsion_strength' not in globals():
+#     repulsion_strength = 0.1
+    
+# if 'division_radius' not in globals():
+#     division_radius = 0.1
+    
+# if 'division_rate' not in globals():
+#     division_rate = 0.01
+
 class Cell:
     def __init__(self, pos):
         self.pos = pos  # (x,y,z)
@@ -111,28 +146,29 @@ def simulate(
 
     return cells
 
-def main(N0, Steps, dt, Lx, Ly, Lz, speed, noise,
-         repulsion_strength, division_radius, division_rate):
+# Initialize outputs
+FinalPoints = []
+Trajectories = []
+Info = "Error: Simulation not executed"
 
-    cells = simulate(N0, Steps, dt, Lx, Ly, Lz, speed, noise,
-                     repulsion_strength, division_rate, division_radius)
-
-    final_points = [list(c.pos) for c in cells]
-
-    trajectories = []
-    for c in cells:
-        trajectories.append([list(p) for p in c.history])
-
-    info = f"Initial: {N0}, Final: {len(cells)}, Divisions: {len(cells)-N0}"
-
-    return final_points, trajectories, info
-
-final_points, trajectories, info = main(
-    N0, Steps, dt, Lx, Ly, Lz,
-    speed, noise, repulsion_strength,
-    division_radius, division_rate
+cells = simulate(
+    N0, Steps, dt,
+    Lx, Ly, Lz,
+    speed, noise,
+    repulsion_strength,
+    division_rate,
+    division_radius
 )
 
-Outputs['FinalPoints'] = final_points
-Outputs['Trajectories'] = trajectories
-Outputs['Info'] = info
+# Output A: Final points (rg.Point3d 리스트)
+FinalPoints = [rg.Point3d(x, y, z) for (x, y, z) in (c.pos for c in cells)]
+
+# Output B: Trajectories (rg.PolylineCurve 리스트)
+Trajectories = []
+for c in cells:
+    pts = [rg.Point3d(px, py, pz) for (px, py, pz) in c.history]
+    if len(pts) > 1:
+        Trajectories.append(rg.PolylineCurve(pts))
+
+# Output C: Info (그냥 문자열)
+Info = "Initial: {0}\nFinal: {1}\nDivisions: {2}".format(N0, len(cells), len(cells) - N0)

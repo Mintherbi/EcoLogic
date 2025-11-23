@@ -6,6 +6,7 @@ using Rhino.Runtime;
 
 using System.IO;
 using System.Diagnostics;
+using System.Collections;
 
 namespace PointCloudDiffusion.Component.Biomimicry
 {
@@ -20,17 +21,17 @@ namespace PointCloudDiffusion.Component.Biomimicry
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddNumberParameter("N0", "GF", "Number of Initial Cells", GH_ParamAccess.item, 3);
-            pManager.AddIntegerParameter("Steps", "GF", "Number of Steps", GH_ParamAccess.item, 300);
-            pManager.AddNumberParameter("dt", "GF", "dt", GH_ParamAccess.item, 0.1);
-            pManager.AddNumberParameter("Lx", "GF", "Bounding Box X", GH_ParamAccess.item, 10.0);
-            pManager.AddNumberParameter("Ly", "GF", "Bounding Box Y", GH_ParamAccess.item, 10.0);
-            pManager.AddNumberParameter("Lz", "GF", "Bounding Box Z", GH_ParamAccess.item, 10.0);
-            pManager.AddNumberParameter("speed", "GF", "Movement Coefficient Length per dt", GH_ParamAccess.item, 0.2);
-            pManager.AddNumberParameter("noise", "GF", "LinearNoise", GH_ParamAccess.item, 0.05);
-            pManager.AddNumberParameter("repulsion_strength", "", "Repulsion Strength", GH_ParamAccess.item, 0.1);
-            pManager.AddNumberParameter("division_radius", "GF", "Division Radius", GH_ParamAccess.item, 0.1);
-            pManager.AddNumberParameter("division_rate", "GF", "Divison Rate", GH_ParamAccess.item, 0.01);
+            pManager.AddIntegerParameter("N0", "N0", "Number of Initial Cells", GH_ParamAccess.item, 3);
+            pManager.AddIntegerParameter("Steps", "Steps", "Number of Steps", GH_ParamAccess.item, 300);
+            pManager.AddNumberParameter("dt", "dt", "dt", GH_ParamAccess.item, 0.1);
+            pManager.AddNumberParameter("Lx", "Lx", "Bounding Box X", GH_ParamAccess.item, 10.0);
+            pManager.AddNumberParameter("Ly", "Ly", "Bounding Box Y", GH_ParamAccess.item, 10.0);
+            pManager.AddNumberParameter("Lz", "Lz", "Bounding Box Z", GH_ParamAccess.item, 10.0);
+            pManager.AddNumberParameter("speed", "speed", "Movement Coefficient Length per dt", GH_ParamAccess.item, 0.2);
+            pManager.AddNumberParameter("noise", "noise", "LinearNoise", GH_ParamAccess.item, 0.05);
+            pManager.AddNumberParameter("repulsion_strength", "repulsion_strength", "Repulsion Strength", GH_ParamAccess.item, 0.1);
+            pManager.AddNumberParameter("division_radius", "division_radius", "Division Radius", GH_ParamAccess.item, 0.1);
+            pManager.AddNumberParameter("division_rate", "division_rate", "Divison Rate", GH_ParamAccess.item, 0.01);
 
         }
 
@@ -57,11 +58,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
             double division_radius = new double();
             double division_rate = new double();
 
-            ///Output Parameter
-            // finalPoints = new List<Point3d>();
-            // trajectories = new List<Curve>();
-            // info = "";
-
             if (!DA.GetData(0, ref N0)) return;
             if (!DA.GetData(1, ref Steps)) return;
             if (!DA.GetData(2, ref dt)) return;
@@ -75,8 +71,13 @@ namespace PointCloudDiffusion.Component.Biomimicry
             if (!DA.GetData(10, ref division_rate)) return;
             #endregion
 
-            var py = PythonScript.Create();
+            string scriptPath = @"/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/PythonFiles/Reaction-Diffusion/01_Static_Reaction-Diffusion.py";
+            string scriptBody = File.ReadAllText(scriptPath);
 
+            // Create Python script instance
+            var py = PythonScript.Create();
+            
+            // Set input variables
             py.SetVariable("N0", N0);
             py.SetVariable("Steps", Steps);
             py.SetVariable("dt", dt);
@@ -89,40 +90,46 @@ namespace PointCloudDiffusion.Component.Biomimicry
             py.SetVariable("division_radius", division_radius);
             py.SetVariable("division_rate", division_rate);
 
-            string scriptPath = Path.GetFullPath(
-                Path.Combine(
-                    Environment.CurrentDirectory,
-                    "../../PythonFiles/Reaction-Diffusion/01_Static_Reaction-Diffusion.py"
-                )
-            );
+            // Execute Python script
+            py.ExecuteScript(scriptBody);
 
-            string scriptBody = File.ReadAllText(scriptPath);
-
-            py.ExecuteFile(scriptPath);
-
-            object pyFinalPoints = py.GetVariable("FinalPoints");
-            object pyTrajectories = py.GetVariable("Trajectories");
-            string info = py.GetVariable<string>("Info");
-
+            // Get results from Python
             var FinalPoints = new List<Point3d>();
-            var Trajectories = new List<Curve>(); 
+            var Trajectories = new List<Curve>();
+            string info = "Calculation completed";
 
+            // Try to get output variables from Python
+            object pyFinalPointsObj = py.GetVariable("FinalPoints");
+            object pyTrajectoriesObj = py.GetVariable("Trajectories");
+            object infoObj = py.GetVariable("Info");
 
-            foreach (var obj in (IEnumerable)pyFinalPoints)
+            // Process FinalPoints
+            if (pyFinalPointsObj != null && pyFinalPointsObj is IEnumerable finalPoints)
             {
-                FinalPoints.Add((Point3d)obj);
+                foreach (var obj in finalPoints)
+                {
+                    if (obj is Point3d point)
+                        FinalPoints.Add(point);
+                }
             }
 
-            foreach (var obj in (IEnumerable)pyTrajectories)
+            // Process Trajectories
+            if (pyTrajectoriesObj != null && pyTrajectoriesObj is IEnumerable trajectories)
             {
-                Trajectories.Add((Curve)obj);
+                foreach (var obj in trajectories)
+                {
+                    if (obj is Curve curve)
+                        Trajectories.Add(curve);
+                }
             }
 
-            #region Set Outputs
+            // Process Info
+            if (infoObj != null)
+                info = infoObj.ToString();
+                
             DA.SetDataList(0, FinalPoints);
             DA.SetDataList(1, Trajectories);
             DA.SetData(2, info);
-            #endregion
         }
 
         protected override System.Drawing.Bitmap Icon
