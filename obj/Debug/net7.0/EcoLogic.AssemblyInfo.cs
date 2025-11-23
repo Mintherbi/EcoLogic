@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("EcoLogic Grasshopper components")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+d3b2be911d1167b866776c25dfef812282aacb85")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+60e48cf3acc57220f3852351c0d691ca95118fa3")]
 [assembly: System.Reflection.AssemblyProductAttribute("EcoLogic")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EcoLogic")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

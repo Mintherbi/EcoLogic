@@ -13,9 +13,9 @@ namespace PointCloudDiffusion.Component.Biomimicry
     public class Embryo : GH_Component
     {
         public Embryo()
-          : base("Embryo", "Emb",
+          : base("Reaction-Diffusion", "Reaction-Diffusion",
               "Biomimicry: Embryo growth parameters",
-              "EcoLogic", "1.Biomimicry")
+              "EcoLogic", "1.BiomimicrySimulation")
         {
         }
 

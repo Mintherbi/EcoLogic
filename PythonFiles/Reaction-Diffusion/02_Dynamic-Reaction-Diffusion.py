@@ -1,3 +1,5 @@
+#! python 3
+
 import Rhino.Geometry as rg
 import random
 import scriptcontext as sc
@@ -32,10 +34,6 @@ def repulsion(cells, idx, strength, min_dist=0.1):
 
     return fx, fy, fz
 
-
-# ---------------------------------------------------------
-# SINGLE STEP UPDATE
-# ---------------------------------------------------------
 def update_cells(cells, dt, Lx, Ly, Lz, speed, noise, repulsion_strength, div_rate, div_radius):
     new_cells = []
 
