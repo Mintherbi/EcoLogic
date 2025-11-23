@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <g fill="none" stroke="#0277BD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <!-- branching form -->
-    <path d="M32 12 C28 20, 26 28, 24 36 C22 44, 22 48, 24 56" />
-    <path d="M32 12 C36 20, 38 28, 40 36 C42 44, 42 48, 40 56" />
-    <path d="M24 36 C30 34, 34 34, 40 36" />
-  </g>
-</svg>

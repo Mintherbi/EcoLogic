@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <g fill="none" stroke="#2E7D32" stroke-width="3" stroke-linejoin="round">
-    <!-- three hexagons arranged -->
-    <polygon points="18,10 26,10 30,18 26,26 18,26 14,18" />
-    <polygon points="34,10 42,10 46,18 42,26 34,26 30,18" />
-    <polygon points="26,26 34,26 38,34 34,42 26,42 22,34" />
-  </g>
-</svg>
