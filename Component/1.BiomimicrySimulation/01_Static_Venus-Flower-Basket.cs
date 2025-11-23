@@ -47,7 +47,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
             pManager.AddIntegerParameter("PatternType", "PatternType", "0=Voronoi only, 1=Framework only, 2=Combined", GH_ParamAccess.item, 0);
             pManager.AddIntegerParameter("Seed", "Seed", "Random seed for cell distribution", GH_ParamAccess.item, 10);
 
-            // Make surface optional
             pManager[0].Optional = true;
         }
 
@@ -62,7 +61,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             #region Set Parameters
-            ///Input Parameter
             GeometryBase surface = null;
             double height = 1.0;
             double diameter = 3.0;
@@ -90,7 +88,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
             if (!DA.GetData(11, ref seed)) return;
             #endregion
 
-            // Set script path - using relative path from project directory
             string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
                 "..", "..", "..", "PythonFiles", "Venus Flower Basket", "01_Static_Venus-Flower-Basket.py");
             scriptPath = Path.GetFullPath(scriptPath);

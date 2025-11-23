@@ -39,7 +39,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             #region Set Parameters
-            ///Input Parameter
             var StartPts = new List<Point3d>();
             var FoodPts = new List<Point3d>();
             double Step = 1.0;
@@ -57,59 +56,50 @@ namespace PointCloudDiffusion.Component.Biomimicry
             if (!DA.GetData(6, ref GrowR)) return;
             #endregion
 
-            try
+            string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
+                "..", "..", "..", "PythonFiles", "Mycelium", "01_Static_Mycelium.py");
+            scriptPath = Path.GetFullPath(scriptPath);
+            string scriptBody = File.ReadAllText(scriptPath);
+
+            var py = PythonScript.Create();
+
+            py.SetVariable("StartPts", StartPts);
+            py.SetVariable("FoodPts", FoodPts);
+            py.SetVariable("Step", Step);
+            py.SetVariable("SenseR", SenseR);
+            py.SetVariable("KillR", KillR);
+            py.SetVariable("MaxIter", MaxIter);
+            py.SetVariable("GrowR", GrowR);
+
+            py.ExecuteScript(scriptBody);
+
+            var Segments = new List<Curve>();
+            var Tips = new List<Point3d>();
+
+            object pySegmentsObj = py.GetVariable("Segments");
+            object pyTipsObj = py.GetVariable("Tips");
+
+            if (pySegmentsObj != null && pySegmentsObj is IEnumerable segments)
             {
-                // Set script path - using relative path from project directory
-                string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
-                    "..", "..", "..", "PythonFiles", "Mycelium", "01_Static_Mycelium.py");
-                scriptPath = Path.GetFullPath(scriptPath);
-                string scriptBody = File.ReadAllText(scriptPath);
-
-                var py = PythonScript.Create();
-
-                py.SetVariable("StartPts", StartPts);
-                py.SetVariable("FoodPts", FoodPts);
-                py.SetVariable("Step", Step);
-                py.SetVariable("SenseR", SenseR);
-                py.SetVariable("KillR", KillR);
-                py.SetVariable("MaxIter", MaxIter);
-                py.SetVariable("GrowR", GrowR);
-
-                py.ExecuteScript(scriptBody);
-
-                var Segments = new List<Curve>();
-                var Tips = new List<Point3d>();
-
-                object pySegmentsObj = py.GetVariable("Segments");
-                object pyTipsObj = py.GetVariable("Tips");
-
-                if (pySegmentsObj != null && pySegmentsObj is IEnumerable segments)
+                foreach (var obj in segments)
                 {
-                    foreach (var obj in segments)
-                    {
-                        if (obj is Curve curve)
-                            Segments.Add(curve);
-                    }
+                    if (obj is Curve curve)
+                        Segments.Add(curve);
                 }
-
-                if (pyTipsObj != null && pyTipsObj is IEnumerable tips)
-                {
-                    foreach (var obj in tips)
-                    {
-                        if (obj is Point3d point)
-                            Tips.Add(point);
-                    }
-                }
-
-                DA.SetDataList(0, Segments);
-                DA.SetDataList(1, Tips);
             }
-            catch (Exception ex)
+
+            if (pyTipsObj != null && pyTipsObj is IEnumerable tips)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Python execution failed: " + ex.Message);
-                DA.SetDataList(0, new List<Curve>());
-                DA.SetDataList(1, new List<Point3d>());
+                foreach (var obj in tips)
+                {
+                    if (obj is Point3d point)
+                        Tips.Add(point);
+                }
             }
+
+            DA.SetDataList(0, Segments);
+            DA.SetDataList(1, Tips);
+
         }
 
         protected override System.Drawing.Bitmap Icon

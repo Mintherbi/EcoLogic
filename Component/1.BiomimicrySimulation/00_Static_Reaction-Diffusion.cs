@@ -45,7 +45,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             #region Set Parameters
-            ///Input Parameter
             int N0 = new int();
             int Steps = new int();
             double dt = new double();
@@ -71,16 +70,13 @@ namespace PointCloudDiffusion.Component.Biomimicry
             if (!DA.GetData(10, ref division_rate)) return;
             #endregion
 
-            // Set script path - using relative path from project directory
             string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
                 "..", "..", "..", "PythonFiles", "Reaction-Diffusion", "01_Static_Reaction-Diffusion.py");
             scriptPath = Path.GetFullPath(scriptPath);
             string scriptBody = File.ReadAllText(scriptPath);
 
-            // Create Python script instance
             var py = PythonScript.Create();
-            
-            // Set input variables
+
             py.SetVariable("N0", N0);
             py.SetVariable("Steps", Steps);
             py.SetVariable("dt", dt);
@@ -93,20 +89,16 @@ namespace PointCloudDiffusion.Component.Biomimicry
             py.SetVariable("division_radius", division_radius);
             py.SetVariable("division_rate", division_rate);
 
-            // Execute Python script
             py.ExecuteScript(scriptBody);
 
-            // Get results from Python
             var FinalPoints = new List<Point3d>();
             var Trajectories = new List<Curve>();
             string info = "Calculation completed";
 
-            // Try to get output variables from Python
             object pyFinalPointsObj = py.GetVariable("FinalPoints");
             object pyTrajectoriesObj = py.GetVariable("Trajectories");
             object infoObj = py.GetVariable("Info");
 
-            // Process FinalPoints
             if (pyFinalPointsObj != null && pyFinalPointsObj is IEnumerable finalPoints)
             {
                 foreach (var obj in finalPoints)
@@ -116,7 +108,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
                 }
             }
 
-            // Process Trajectories
             if (pyTrajectoriesObj != null && pyTrajectoriesObj is IEnumerable trajectories)
             {
                 foreach (var obj in trajectories)
@@ -126,7 +117,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
                 }
             }
 
-            // Process Info
             if (infoObj != null)
                 info = infoObj.ToString();
                 

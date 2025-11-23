@@ -26,7 +26,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
             pManager.AddNumberParameter("LatticeThreshold", "Threshold", "Threshold for lattice generation (higher = more porous)", GH_ParamAccess.item, 0.25);
             pManager.AddVectorParameter("WindDirection", "WindDir", "Wind direction vector for lateral loads", GH_ParamAccess.item);
 
-            // Make boundary and wind direction optional
             pManager[0].Optional = true;
             pManager[5].Optional = true;
         }
@@ -45,7 +44,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             #region Set Parameters
-            ///Input Parameter
             Brep boundary_brep = null;
             int floor_count = 5;
             double floor_height = 4.0;
@@ -53,7 +51,6 @@ namespace PointCloudDiffusion.Component.Biomimicry
             double lattice_threshold = 0.25;
             Vector3d wind_direction = Vector3d.Unset;
 
-            // Get inputs - only boundary_brep is not required
             DA.GetData(0, ref boundary_brep);
             if (!DA.GetData(1, ref floor_count)) return;
             if (!DA.GetData(2, ref floor_height)) return;
@@ -62,133 +59,113 @@ namespace PointCloudDiffusion.Component.Biomimicry
             DA.GetData(5, ref wind_direction);
             #endregion
 
-            try
+            string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
+                "..", "..", "..", "PythonFiles", "Birdbond", "01_Static_Birdbone.py");
+            scriptPath = Path.GetFullPath(scriptPath);
+            string scriptBody = File.ReadAllText(scriptPath);
+
+            var py = PythonScript.Create();
+
+            py.SetVariable("boundary_brep", boundary_brep);
+            py.SetVariable("floor_count", floor_count);
+            py.SetVariable("floor_height", floor_height);
+            py.SetVariable("voxel_size", voxel_size);
+            py.SetVariable("lattice_threshold", lattice_threshold);
+            
+            if (wind_direction != Vector3d.Unset)
             {
-                // Set script path - using relative path from project directory
-                string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
-                    "..", "..", "..", "PythonFiles", "Birdbond", "01_Static_Birdbone.py");
-                scriptPath = Path.GetFullPath(scriptPath);
-                string scriptBody = File.ReadAllText(scriptPath);
-
-                var py = PythonScript.Create();
-
-                py.SetVariable("boundary_brep", boundary_brep);
-                py.SetVariable("floor_count", floor_count);
-                py.SetVariable("floor_height", floor_height);
-                py.SetVariable("voxel_size", voxel_size);
-                py.SetVariable("lattice_threshold", lattice_threshold);
-                
-                if (wind_direction != Vector3d.Unset)
-                {
-                    py.SetVariable("wind_direction", wind_direction);
-                }
-
-                py.ExecuteScript(scriptBody);
-
-                var LatticeLines = new List<Curve>();
-                var FloorSlabs = new List<Brep>();
-                var Columns = new List<Curve>();
-                var StressField = new List<Point3d>();
-                var DensityMap = new List<Point3d>();
-                var ThickLattice = new List<Brep>();
-                var ThickFloors = new List<Brep>();
-
-                // Get lattice lines
-                object pyLatticeObj = py.GetVariable("lattice_lines");
-                if (pyLatticeObj != null && pyLatticeObj is IEnumerable latticeLines)
-                {
-                    foreach (var obj in latticeLines)
-                    {
-                        if (obj is Curve curve)
-                            LatticeLines.Add(curve);
-                    }
-                }
-
-                // Get floor slabs
-                object pyFloorSlabsObj = py.GetVariable("floor_slabs");
-                if (pyFloorSlabsObj != null && pyFloorSlabsObj is IEnumerable floorSlabs)
-                {
-                    foreach (var obj in floorSlabs)
-                    {
-                        if (obj is Brep brep)
-                            FloorSlabs.Add(brep);
-                    }
-                }
-
-                // Get columns
-                object pyColumnsObj = py.GetVariable("columns");
-                if (pyColumnsObj != null && pyColumnsObj is IEnumerable columns)
-                {
-                    foreach (var obj in columns)
-                    {
-                        if (obj is Curve curve)
-                            Columns.Add(curve);
-                    }
-                }
-
-                // Get stress field points
-                object pyStressObj = py.GetVariable("stress_field");
-                if (pyStressObj != null && pyStressObj is IEnumerable stressField)
-                {
-                    foreach (var obj in stressField)
-                    {
-                        if (obj is Point3d point)
-                            StressField.Add(point);
-                    }
-                }
-
-                // Get density map points
-                object pyDensityObj = py.GetVariable("density_map");
-                if (pyDensityObj != null && pyDensityObj is IEnumerable densityMap)
-                {
-                    foreach (var obj in densityMap)
-                    {
-                        if (obj is Point3d point)
-                            DensityMap.Add(point);
-                    }
-                }
-
-                // Get thick lattice
-                object pyThickLatticeObj = py.GetVariable("thick_lattice");
-                if (pyThickLatticeObj != null && pyThickLatticeObj is IEnumerable thickLattice)
-                {
-                    foreach (var obj in thickLattice)
-                    {
-                        if (obj is Brep brep)
-                            ThickLattice.Add(brep);
-                    }
-                }
-
-                // Get thick floors
-                object pyThickFloorsObj = py.GetVariable("thick_floors");
-                if (pyThickFloorsObj != null && pyThickFloorsObj is IEnumerable thickFloors)
-                {
-                    foreach (var obj in thickFloors)
-                    {
-                        if (obj is Brep brep)
-                            ThickFloors.Add(brep);
-                    }
-                }
-
-                DA.SetDataList(0, LatticeLines);
-                DA.SetDataList(1, FloorSlabs);
-                DA.SetDataList(2, Columns);
-                DA.SetDataList(3, StressField);
-                DA.SetDataList(4, DensityMap);
-                DA.SetDataList(5, ThickLattice);
-                DA.SetDataList(6, ThickFloors);
+                py.SetVariable("wind_direction", wind_direction);
             }
-            catch (Exception ex)
+
+            py.ExecuteScript(scriptBody);
+
+            var LatticeLines = new List<Curve>();
+            var FloorSlabs = new List<Brep>();
+            var Columns = new List<Curve>();
+            var StressField = new List<Point3d>();
+            var DensityMap = new List<Point3d>();
+            var ThickLattice = new List<Brep>();
+            var ThickFloors = new List<Brep>();
+
+            object pyLatticeObj = py.GetVariable("lattice_lines");
+            if (pyLatticeObj != null && pyLatticeObj is IEnumerable latticeLines)
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Python execution failed: " + ex.Message);
-                DA.SetDataList(0, new List<Curve>());
-                DA.SetDataList(1, new List<Brep>());
-                DA.SetDataList(2, new List<Curve>());
-                DA.SetDataList(3, new List<Point3d>());
-                DA.SetDataList(4, new List<Point3d>());
-                DA.SetDataList(5, new List<Brep>());
-                DA.SetDataList(6, new List<Brep>());
+                foreach (var obj in latticeLines)
+                {
+                    if (obj is Curve curve)
+                        LatticeLines.Add(curve);
+                }
             }
+
+            object pyFloorSlabsObj = py.GetVariable("floor_slabs");
+            if (pyFloorSlabsObj != null && pyFloorSlabsObj is IEnumerable floorSlabs)
+            {
+                foreach (var obj in floorSlabs)
+                {
+                    if (obj is Brep brep)
+                        FloorSlabs.Add(brep);
+                }
+            }
+
+            object pyColumnsObj = py.GetVariable("columns");
+            if (pyColumnsObj != null && pyColumnsObj is IEnumerable columns)
+            {
+                foreach (var obj in columns)
+                {
+                    if (obj is Curve curve)
+                        Columns.Add(curve);
+                }
+            }
+
+            object pyStressObj = py.GetVariable("stress_field");
+            if (pyStressObj != null && pyStressObj is IEnumerable stressField)
+            {
+                foreach (var obj in stressField)
+                {
+                    if (obj is Point3d point)
+                        StressField.Add(point);
+                }
+            }
+
+            object pyDensityObj = py.GetVariable("density_map");
+            if (pyDensityObj != null && pyDensityObj is IEnumerable densityMap)
+            {
+                foreach (var obj in densityMap)
+                {
+                    if (obj is Point3d point)
+                        DensityMap.Add(point);
+                }
+            }
+
+            object pyThickLatticeObj = py.GetVariable("thick_lattice");
+            if (pyThickLatticeObj != null && pyThickLatticeObj is IEnumerable thickLattice)
+            {
+                foreach (var obj in thickLattice)
+                {
+                    if (obj is Brep brep)
+                        ThickLattice.Add(brep);
+                }
+            }
+
+            // Get thick floors
+            object pyThickFloorsObj = py.GetVariable("thick_floors");
+            if (pyThickFloorsObj != null && pyThickFloorsObj is IEnumerable thickFloors)
+            {
+                foreach (var obj in thickFloors)
+                {
+                    if (obj is Brep brep)
+                        ThickFloors.Add(brep);
+                }
+            }
+
+            DA.SetDataList(0, LatticeLines);
+            DA.SetDataList(1, FloorSlabs);
+            DA.SetDataList(2, Columns);
+            DA.SetDataList(3, StressField);
+            DA.SetDataList(4, DensityMap);
+            DA.SetDataList(5, ThickLattice);
+            DA.SetDataList(6, ThickFloors);
+
         }
 
         protected override System.Drawing.Bitmap Icon
