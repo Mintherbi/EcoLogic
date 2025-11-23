@@ -13,7 +13,7 @@ namespace PointCloudDiffusion.Component.Biomimicry
     public class VenusFlowerBasket : GH_Component
     {
         public VenusFlowerBasket()
-          : base("Venus Flower Basket", "VFB",
+          : base("Venus Flower Basket", "Venus Flower Basket",
               "Biomimicry: Venus Flower Basket structure generation",
               "EcoLogic", "1.BiomimicrySimulation")
         {
