@@ -71,7 +71,10 @@ namespace PointCloudDiffusion.Component.Biomimicry
             if (!DA.GetData(10, ref division_rate)) return;
             #endregion
 
-            string scriptPath = @"/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/PythonFiles/Reaction-Diffusion/01_Static_Reaction-Diffusion.py";
+            // Set script path - using relative path from project directory
+            string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
+                "..", "..", "..", "PythonFiles", "Reaction-Diffusion", "01_Static_Reaction-Diffusion.py");
+            scriptPath = Path.GetFullPath(scriptPath);
             string scriptBody = File.ReadAllText(scriptPath);
 
             // Create Python script instance

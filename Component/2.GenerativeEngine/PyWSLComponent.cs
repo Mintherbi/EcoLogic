@@ -22,7 +22,7 @@ namespace PointCloudDiffusion.Component.ExternalProcess
         public PyWSLComponent()
           : base("PythonInWsl", "PyWSL",
               "Execute Python in WSl Environment",
-              "EcoLogic", "2.GenerativeEngine")
+              "EcoLogic", "3.ExternalProgram")
         {
         }
 

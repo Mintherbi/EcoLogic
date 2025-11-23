@@ -23,7 +23,7 @@ namespace PointCloudDiffusion.Component.Train
           : base("ModelOption", "Arg",
               "Construct Model Parser for Trainging \n" +
                 "Double Click Component to Set which model to run",
-              "EcoLogic", "2.GenerativeEngine")
+              "EcoLogic", "3.ExternalProgram")
         {
         }
         public override void CreateAttributes()

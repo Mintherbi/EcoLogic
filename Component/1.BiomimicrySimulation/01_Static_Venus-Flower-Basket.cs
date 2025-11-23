@@ -90,7 +90,10 @@ namespace PointCloudDiffusion.Component.Biomimicry
             if (!DA.GetData(11, ref seed)) return;
             #endregion
 
-            string scriptPath = @"/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/PythonFiles/Venus Flower Basket/01_Static_Venus-Flower-Basket.py";
+            // Set script path - using relative path from project directory
+            string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
+                "..", "..", "..", "PythonFiles", "Venus Flower Basket", "01_Static_Venus-Flower-Basket.py");
+            scriptPath = Path.GetFullPath(scriptPath);
             string scriptBody = File.ReadAllText(scriptPath);
 
             var py = PythonScript.Create();

@@ -9,41 +9,6 @@ import clr
 import traceback
 import math
 
-# Input variables (will be set by C# PythonScript.SetVariable)
-# Default values for standalone execution
-# if 'N0' not in globals():
-#     N0 = 3
-    
-# if 'Steps' not in globals():
-#     Steps = 300
-    
-# if 'dt' not in globals():
-#     dt = 0.1
-    
-# if 'Lx' not in globals():
-#     Lx = 10.0
-    
-# if 'Ly' not in globals():
-#     Ly = 10.0
-    
-# if 'Lz' not in globals():
-#     Lz = 10.0
-    
-# if 'speed' not in globals():
-#     speed = 0.2
-    
-# if 'noise' not in globals():
-#     noise = 0.05
-    
-# if 'repulsion_strength' not in globals():
-#     repulsion_strength = 0.1
-    
-# if 'division_radius' not in globals():
-#     division_radius = 0.1
-    
-# if 'division_rate' not in globals():
-#     division_rate = 0.01
-
 class Cell:
     def __init__(self, pos):
         self.pos = pos  # (x,y,z)
@@ -71,7 +36,6 @@ def repulsion(cells, idx, strength, min_dist=0.1):
             fz += factor * (dz/dist)
 
     return fx, fy, fz
-
 
 def simulate(
     N0=50,

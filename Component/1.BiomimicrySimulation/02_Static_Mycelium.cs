@@ -23,11 +23,11 @@ namespace PointCloudDiffusion.Component.Biomimicry
         {
             pManager.AddPointParameter("StartPts", "StartPts", "Starting seed points for mycelium growth", GH_ParamAccess.list);
             pManager.AddPointParameter("FoodPts", "FoodPts", "Food/nutrient points that attract growth", GH_ParamAccess.list);
-            pManager.AddNumberParameter("Step", "Step", "Growth step size", GH_ParamAccess.item, 1.0);
-            pManager.AddNumberParameter("SenseR", "SenseR", "Sensing radius for detecting food", GH_ParamAccess.item, 5.0);
+            pManager.AddNumberParameter("Step", "Step", "Growth step size", GH_ParamAccess.item, 2.0);
+            pManager.AddNumberParameter("SenseR", "SenseR", "Sensing radius for detecting food", GH_ParamAccess.item, 30.0);
             pManager.AddNumberParameter("KillR", "KillR", "Kill radius - distance at which food is consumed", GH_ParamAccess.item, 1.0);
-            pManager.AddIntegerParameter("MaxIter", "MaxIter", "Maximum number of growth iterations", GH_ParamAccess.item, 100);
-            pManager.AddNumberParameter("GrowR", "GrowR", "Growth radius - limits growth area around start points", GH_ParamAccess.item, 50.0);
+            pManager.AddIntegerParameter("MaxIter", "MaxIter", "Maximum number of growth iterations", GH_ParamAccess.item, 200);
+            pManager.AddNumberParameter("GrowR", "GrowR", "Growth radius - limits growth area around start points", GH_ParamAccess.item, 178.0);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -59,7 +59,10 @@ namespace PointCloudDiffusion.Component.Biomimicry
 
             try
             {
-                string scriptPath = @"/Users/minsupchung/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Grasshopper Project/EcoLogic/PythonFiles/Mycelium/01_Static_Mycelium.py";
+                // Set script path - using relative path from project directory
+                string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
+                    "..", "..", "..", "PythonFiles", "Mycelium", "01_Static_Mycelium.py");
+                scriptPath = Path.GetFullPath(scriptPath);
                 string scriptBody = File.ReadAllText(scriptPath);
 
                 var py = PythonScript.Create();

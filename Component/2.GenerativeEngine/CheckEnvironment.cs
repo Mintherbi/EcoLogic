@@ -22,7 +22,7 @@ namespace PointCloudDiffusion.Component.Train
         public CheckEnvironment()
           : base("CheckEnvironment", "Env",
               "Check Conda Environment that is Installed",
-              "EcoLogic", "2.GenerativeEngine")
+              "EcoLogic", "3.ExternalProgram")
         {
         }
 

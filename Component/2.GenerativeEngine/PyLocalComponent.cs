@@ -17,7 +17,7 @@ namespace PointCloudDiffusion.Component.ExternalProcess
         public PyLocalComponent()
           : base("PythonInLocal", "PyLo",
               "Python in Local Environment",
-              "EcoLogic", "2.GenerativeEngine")
+              "EcoLogic", "3.ExternalProgram")
         {
         }
 
