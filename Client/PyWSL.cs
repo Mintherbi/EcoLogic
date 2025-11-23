@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace PointCloudDiffusion.Client
 {
@@ -17,15 +18,31 @@ namespace PointCloudDiffusion.Client
         {
             this.process = new Process();
 
-            var psi = new ProcessStartInfo
+            var psi = new ProcessStartInfo();
+            
+            // Determine OS and set appropriate command
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                FileName = "wsl",
-                Arguments = $"source ~/.zshrc && conda activate {conda} && python3 -u {scriptPath} {args}",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = false
-            };
+                // Windows - use WSL
+                psi.FileName = "wsl";
+                psi.Arguments = $"source ~/.zshrc && conda activate {conda} && python3 -u {scriptPath} {args}";
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || 
+                     RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                // macOS/Linux - use zsh directly
+                psi.FileName = "zsh";
+                psi.Arguments = $"-c \"source ~/.zshrc && conda activate {conda} && python3 -u {scriptPath} {args}\"";
+            }
+            else
+            {
+                throw new PlatformNotSupportedException("Unsupported operating system");
+            }
+
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+            psi.CreateNoWindow = false;
 
             this.process.StartInfo = psi; 
         }
