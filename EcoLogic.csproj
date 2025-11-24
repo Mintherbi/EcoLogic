@@ -40,12 +40,6 @@
     <None Include="PythonFiles\**\*.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="PythonFiles\**\*.gh">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="PythonFiles\**\*.3dm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <!-- Post-build event to copy files to DEMO folder -->
