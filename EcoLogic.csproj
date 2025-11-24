@@ -35,6 +35,27 @@
     </None>
   </ItemGroup>
   
+  <!-- Include Python files to be copied to output directory -->
+  <ItemGroup>
+    <None Include="PythonFiles\**\*.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="PythonFiles\**\*.gh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="PythonFiles\**\*.3dm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Post-build event to copy files to DEMO folder -->
+  <Target Name="CopyToDemo" AfterTargets="Build">
+    <ItemGroup>
+      <OutputFiles Include="$(OutputPath)**" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OutputFiles)" DestinationFiles="@(OutputFiles->'$(ProjectDir)DEMO\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+  
   <!-- Reference WinForms for .NET 7.0 on macOS -->
   <ItemGroup>
     <!-- Rhino 8.10 and earlier -->

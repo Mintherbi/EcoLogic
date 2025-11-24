@@ -57,7 +57,7 @@ namespace PointCloudDiffusion.Component.Biomimicry
             #endregion
 
             string scriptPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), 
-                "..", "..", "..", "PythonFiles", "Mycelium", "01_Static_Mycelium.py");
+                "PythonFiles", "Mycelium", "01_Static_Mycelium.py");
             scriptPath = Path.GetFullPath(scriptPath);
             string scriptBody = File.ReadAllText(scriptPath);
 
