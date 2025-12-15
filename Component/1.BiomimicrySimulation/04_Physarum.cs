@@ -59,6 +59,7 @@ namespace PointCloudDiffusion.Component.Biomimicry
             p.AddIntegerParameter("NumSteps", "N", "Number of steps to run", GH_ParamAccess.item, 100);
             p.AddIntegerParameter("U", "U", "Grid width for mapping", GH_ParamAccess.item, 100);
             p.AddIntegerParameter("V", "V", "Grid height for mapping", GH_ParamAccess.item, 100);
+            p.AddIntegerParameter("PipeSamples", "PS", "Number of samples along curve for pipe", GH_ParamAccess.item, 100);
             p.AddNumberParameter("PipeRadius", "PR", "Radius of tube mesh", GH_ParamAccess.item, 2.0);
             p.AddIntegerParameter("PipeCircleSegments", "PCS", "Segments around tube", GH_ParamAccess.item, 24);
         }
@@ -80,7 +81,8 @@ namespace PointCloudDiffusion.Component.Biomimicry
             int NumSteps = 50;
             int U = 200;
             int V = 200;
-            double PipeRadius = 0.1;
+            int PipeSamples = 100;
+            double PipeRadius = 1.0;
             int PipeCircleSegments = 8;
 
             DA.GetData(0, ref Srf);
@@ -91,8 +93,9 @@ namespace PointCloudDiffusion.Component.Biomimicry
             DA.GetData(5, ref NumSteps);
             DA.GetData(6, ref U);
             DA.GetData(7, ref V);
-            DA.GetData(8, ref PipeRadius);
-            DA.GetData(9, ref PipeCircleSegments);
+            DA.GetData(8, ref PipeSamples);
+            DA.GetData(9, ref PipeRadius);
+            DA.GetData(10, ref PipeCircleSegments);
 
             width = U;
             height = V;
@@ -209,7 +212,7 @@ namespace PointCloudDiffusion.Component.Biomimicry
             foreach (var crv in polylines3D)
             {
                 if (crv == null || !crv.IsValid) continue;
-                meshes.Add(CreateMeshTubeFromCurve(crv, PipeRadius, PipeCircleSegments, 12));
+                meshes.Add(CreateMeshTubeFromCurve(crv, PipeRadius, PipeCircleSegments, PipeSamples));
             }
             DA.SetDataList(2, meshes);
         }
